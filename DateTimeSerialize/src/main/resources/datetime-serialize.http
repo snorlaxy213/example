@@ -1,0 +1,22 @@
+### testDate
+GET http://localhost:8080/testDate?date=2014-6-1 21:05:36
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json;charset=UTF-8
+
+### testLocalDateTime
+GET http://localhost:8080/testLocalDateTime?localDateTime=2014-06-01 21:05:36
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json;charset=UTF-8
+
+### testVo
+POST http://localhost:8080/testVo
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json;charset=UTF-8
+
+{
+    "date": "2014-6-1 21:05:36",
+    "localDateTime": "2014-06-01 21:05:36"
+}

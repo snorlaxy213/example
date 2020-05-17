@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  # 全局设置Date类型接受和返回的format，但是只对对象里的Date类型有用
+  # 通过@RequestParam传输的普通参数需要额外配置，参考StringToDateConverter和MvcConfig绑定Converter
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# Date类型参考文章 title：SpringBoot全局配置日期类型参数Date自动绑定，返回结果自动格式化
+# Url：https://blog.csdn.net/ye17186/article/details/90712056
+
+# LocalDateTime类型参考文章 title：彻底解决Spring mvc中时间的转换和序列化等问题
+# Url：https://www.jianshu.com/p/b979f742426a

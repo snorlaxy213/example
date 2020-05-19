@@ -23,7 +23,7 @@ public final class RedisUtil {
      *
      * @param key  键
      * @param time 时间(秒)
-     * @return
+     * @return true成功 false 失败
      */
     public boolean expire(String key, long time) {
         try {

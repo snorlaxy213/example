@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    master:
+      jdbc-url:
+      username:
+      password:
+      driver-class-name:
+    slave:
+      jdbc-url:
+      username: root
+      password: admin
+      driver-class-name:com.mysql.cj.jdbc.Driver

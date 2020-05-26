@@ -1,12 +1,12 @@
 spring:
   datasource:
     master:
-      jdbc-url:
-      username:
-      password:
-      driver-class-name:
-    slave:
-      jdbc-url:
+      jdbc-url: jdbc:mysql://localhost:3306/master?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
       username: root
       password: admin
-      driver-class-name:com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    slave:
+      jdbc-url: jdbc:mysql://localhost:3306/slave?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+      username: root
+      password: admin
+      driver-class-name: com.mysql.cj.jdbc.Driver

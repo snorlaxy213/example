@@ -1,6 +1,9 @@
 package com.vino.web;
 
 import com.vino.model.User;
+import com.vino.util.RedisUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,9 @@ import java.util.UUID;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @RequestMapping("/getUser")
     @Cacheable(value="user-key")
@@ -26,6 +32,7 @@ public class UserController {
         if (uid == null) {
             uid = UUID.randomUUID();
         }
+        redisUtil.set("uid", uid);
         session.setAttribute("uid", uid);
         return session.getId();
     }

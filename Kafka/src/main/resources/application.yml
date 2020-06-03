@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  main: 
+    show-banner: false
+spring:
+  kafka:
+    #============== kafka ===================
+    # 指定kafka 代理地址，可以多个
+    bootstrap-servers: 192.168.80.128:9092
+    #=============== provider =======================
+    producer:
+      retries: 0
+      # 每次批量发送消息的数量
+      batch-size: 16384
+      buffer-memory: 33554432
+      # 指定生产者消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    #=============== consumer =======================
+    consumer:
+      # 指定默认消费者group id
+      group-id: kafka-consumer-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      # 指定消费者消息key和消息体的编解码方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

@@ -1,4 +1,4 @@
-package com.vino.MultipleDataSource;
+package com.vino;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

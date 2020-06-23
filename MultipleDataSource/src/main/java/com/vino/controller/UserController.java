@@ -1,4 +1,4 @@
-package com.vino.web;
+package com.vino.controller;
 
 import java.util.List;
 

@@ -45,7 +45,12 @@ public class DistributeController {
      * 如果ID暴露给公共访问，可能会泄漏商业机密
      * 需要访问一次数据库获取ID
      *
+     * 使用方法：
+     * Mysql：设置每个数据库递增的起始值和步长（步长为服务数据库的个数）
+     * Oracle： 设置每个Sequence的起始值和步长（步长为服务数据库的个数）
+     *
      */
+
 
 
 

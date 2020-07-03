@@ -12,7 +12,7 @@ public class DistributeController {
     //https://colobu.com/2020/02/21/ID-generator/
 
     /**
-     * UUID/GUID
+     * 1.UUID/GUID
      *
      * 优点:
      * 容易实现，产生快
@@ -34,7 +34,7 @@ public class DistributeController {
     }
 
     /*
-     * 递增的整数:
+     * 2.递增的整数:
      * 可以通过关系型数据库的自增主键产生唯一的ID，现在流行的商业数据库都支持自增主键的特性，比如mysql等。
      * nosql数据库也提供类似特性，比如Redis。
      *
@@ -56,7 +56,7 @@ public class DistributeController {
      */
 
     /**
-     * snowflake 算法是 twitter 开源的分布式 id 生成算法，采用 Scala 语言实现，是把一个 64 位的 long 型的 id，
+     * 3.snowflake 算法是 twitter 开源的分布式 id 生成算法，采用 Scala 语言实现，是把一个 64 位的 long 型的 id，
      * 1 个 bit 是不用的，用其中的 41 bits 作为毫秒数，用 10 bits 作为工作机器 id，12 bits 作为序列号。
      *
      * 优点：

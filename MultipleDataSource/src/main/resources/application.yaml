@@ -6,10 +6,10 @@ spring:
     primary:
       jdbc-url: jdbc:mysql://localhost:3306/primaryuser?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
       username: root
-      password: root
+      password: admin
       driver-class-name: com.mysql.cj.jdbc.Driver
     slave:
       jdbc-url: jdbc:mysql://localhost:3306/slaveuser?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
       username: root
-      password: root
+      password: admin
       driver-class-name: com.mysql.cj.jdbc.Driver

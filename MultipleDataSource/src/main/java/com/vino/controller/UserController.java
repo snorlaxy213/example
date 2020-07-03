@@ -8,6 +8,7 @@ import com.vino.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,23 +23,21 @@ public class UserController {
 	
 	@RequestMapping("/getUsers")
 	public List<User> getUsers() {
-		List<User> users=userPrimaryMapper.getAll();
-		return users;
+        return userPrimaryMapper.getAll();
 	}
 	
     @RequestMapping("/getUser")
     public User getUser(Long id) {
-    	User user=userSlaveMapper.getOne(id);
-        return user;
+        return userSlaveMapper.getOne(id);
     }
     
     @RequestMapping("/add")
-    public void save(User user) {
+    public void save(@RequestBody User user) {
         userSlaveMapper.insert(user);
     }
     
     @RequestMapping(value="update")
-    public void update(User user) {
+    public void update(@RequestBody User user) {
         userSlaveMapper.update(user);
     }
     

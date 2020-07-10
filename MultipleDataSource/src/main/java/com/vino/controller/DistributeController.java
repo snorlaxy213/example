@@ -6,9 +6,17 @@ import com.vino.util.SnowflakeIdWorker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 1. 分表分库ID怎么处理？
+ * 2. 如何设计动态扩容缩容的分表分库方案？（如何处理ID扩容的问题）
+ */
 @RestController
 public class DistributeController {
 
+    /**
+     *
+     *
+     * */
     //https://colobu.com/2020/02/21/ID-generator/
 
     /**
@@ -33,7 +41,7 @@ public class DistributeController {
         return UUID.randomUUID().toString();
     }
 
-    /*
+    /**
      * 2.递增的整数:
      * 可以通过关系型数据库的自增主键产生唯一的ID，现在流行的商业数据库都支持自增主键的特性，比如mysql等。
      * nosql数据库也提供类似特性，比如Redis。

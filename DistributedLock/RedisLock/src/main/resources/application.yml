@@ -1,6 +1,4 @@
 spring:
-  cache:
-    type: redis
   redis:
     enabled: true # Redis开关/默认关闭
     database: 0 # Redis数据库索引（默认为0）

@@ -1,0 +1,3 @@
+### list users
+GET http://localhost:8080/getUsers
+Accept: application/json

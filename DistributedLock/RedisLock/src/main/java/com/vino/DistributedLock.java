@@ -7,6 +7,11 @@ import org.springframework.util.StringUtils;
 
 /**
  * redis实现的distributed lock ,锁占用时间不宜过长
+ *
+ * 实现方式：使用 Redis SETNX。
+ * 只在键 key 不存在的情况下， 将键 key 的值设置为 value 。
+ * 若键 key 已经存在， 则 SETNX 命令不做任何动作。
+ * SETNX 是『SET if Not eXists』(如果不存在，则 SET)的简写。
  */
 @Component
 public class DistributedLock {
@@ -35,16 +40,14 @@ public class DistributedLock {
             //得到了锁返回
             return expireTime;
         } else {
-            Long curLockTimeStr = (Long) redisTemplate.opsForValue().get(key);
+            Long curLockTime = (Long) redisTemplate.opsForValue().get(key);
 
             //判断是否过期
-            if (StringUtils.isEmpty(curLockTimeStr) || System.currentTimeMillis() > curLockTimeStr) {
+            if (StringUtils.isEmpty(curLockTime) || System.currentTimeMillis() > curLockTime) {
                 expireTime = System.currentTimeMillis() + lockTimeOut + 1;
-
-                curLockTimeStr = (Long) redisTemplate.opsForValue().getAndSet(key, expireTime);
+                curLockTime = (Long) redisTemplate.opsForValue().getAndSet(key, expireTime);
                 //仍然过期,则得到锁
-                if (StringUtils.isEmpty(curLockTimeStr)
-                        || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
+                if (StringUtils.isEmpty(curLockTime) || System.currentTimeMillis() > curLockTime) {
                     return expireTime;
                 } else {
                     return 0;
@@ -73,16 +76,13 @@ public class DistributedLock {
                 //得到了锁返回
                 return expireTime;
             } else {
-                String curLockTimeStr = String.valueOf(redisTemplate.opsForValue().get(key));
+                Long curLockTime = (Long) redisTemplate.opsForValue().get(key);
                 //判断是否过期
-                if (StringUtils.isEmpty(curLockTimeStr)
-                        || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
+                if (StringUtils.isEmpty(curLockTime) || System.currentTimeMillis() > curLockTime) {
                     expireTime = System.currentTimeMillis() + lockTimeOut + 1;
-
-                    curLockTimeStr = String.valueOf(redisTemplate.opsForValue().getAndSet(key, expireTime));
+                    curLockTime = (Long) redisTemplate.opsForValue().getAndSet(key, expireTime);
                     //仍然过期,则得到锁
-                    if (StringUtils.isEmpty(curLockTimeStr)
-                            || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
+                    if (StringUtils.isEmpty(curLockTime) || System.currentTimeMillis() > curLockTime) {
                         return expireTime;
                     } else {
                         Thread.sleep(sleep);
@@ -91,8 +91,7 @@ public class DistributedLock {
                     Thread.sleep(sleep);
                 }
             }
-            if (lockTimeOut > 0
-                    && ((System.currentTimeMillis() - startTime) >= lockTimeOut)) {
+            if (lockTimeOut > 0 && ((System.currentTimeMillis() - startTime) >= lockTimeOut)) {
                 expireTime = 0;
                 return expireTime;
             }
@@ -102,15 +101,15 @@ public class DistributedLock {
     /**
      * 先判断自己运行时间是否超过了锁设置时间，是则不用解锁
      *
-     * @param key
-     * @param expireTime
+     * @param key redis key
+     * @param expireTime 超时时间
      */
     public void unlock(String key, long expireTime) {
         if (System.currentTimeMillis() - expireTime > 0) {
             return;
         }
-        String curLockTimeStr = (String) redisTemplate.opsForValue().get(key);
-        if (StringUtils.isEmpty(curLockTimeStr) && Long.valueOf(curLockTimeStr) > System.currentTimeMillis()) {
+        Long curLockTime = (Long) redisTemplate.opsForValue().get(key);
+        if (StringUtils.isEmpty(curLockTime) && curLockTime > System.currentTimeMillis()) {
             redisTemplate.delete(key);
         }
     }

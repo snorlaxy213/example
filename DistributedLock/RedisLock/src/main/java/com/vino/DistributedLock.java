@@ -16,9 +16,8 @@ public class DistributedLock {
 
     //锁名称前缀
     public static final String LOCK_PREFIX = "redis_lock";
-
     //单位毫秒
-    private long lockTimeOut = 2000;
+    private final long lockTimeOut = 2000;
     private long perSleep;
 
     /**
@@ -36,14 +35,13 @@ public class DistributedLock {
             //得到了锁返回
             return expireTime;
         } else {
-            String curLockTimeStr = (String) redisTemplate.opsForValue().get(key);
+            Long curLockTimeStr = (Long) redisTemplate.opsForValue().get(key);
 
             //判断是否过期
-            if (StringUtils.isEmpty(curLockTimeStr)
-                    || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
+            if (StringUtils.isEmpty(curLockTimeStr) || System.currentTimeMillis() > curLockTimeStr) {
                 expireTime = System.currentTimeMillis() + lockTimeOut + 1;
 
-                curLockTimeStr = (String) redisTemplate.opsForValue().getAndSet(key, expireTime);
+                curLockTimeStr = (Long) redisTemplate.opsForValue().getAndSet(key, expireTime);
                 //仍然过期,则得到锁
                 if (StringUtils.isEmpty(curLockTimeStr)
                         || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
@@ -75,13 +73,13 @@ public class DistributedLock {
                 //得到了锁返回
                 return expireTime;
             } else {
-                String curLockTimeStr = (String) redisTemplate.opsForValue().get(key);
+                String curLockTimeStr = String.valueOf(redisTemplate.opsForValue().get(key));
                 //判断是否过期
                 if (StringUtils.isEmpty(curLockTimeStr)
                         || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {
                     expireTime = System.currentTimeMillis() + lockTimeOut + 1;
 
-                    curLockTimeStr = (String) redisTemplate.opsForValue().getAndSet(key, expireTime);
+                    curLockTimeStr = String.valueOf(redisTemplate.opsForValue().getAndSet(key, expireTime));
                     //仍然过期,则得到锁
                     if (StringUtils.isEmpty(curLockTimeStr)
                             || System.currentTimeMillis() > Long.valueOf(curLockTimeStr)) {

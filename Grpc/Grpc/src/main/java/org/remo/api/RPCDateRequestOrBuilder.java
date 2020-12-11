@@ -4,16 +4,17 @@
 package org.remo.api;
 
 public interface RPCDateRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:org.remo.api.RPCDateRequest)
-    com.google.protobuf.MessageOrBuilder {
+        // @@protoc_insertion_point(interface_extends:org.remo.api.RPCDateRequest)
+        com.google.protobuf.MessageOrBuilder {
 
-  /**
-   * <code>optional string userName = 1;</code>
-   */
-  String getUserName();
-  /**
-   * <code>optional string userName = 1;</code>
-   */
-  com.google.protobuf.ByteString
-      getUserNameBytes();
+    /**
+     * <code>optional string userName = 1;</code>
+     */
+    String getUserName();
+
+    /**
+     * <code>optional string userName = 1;</code>
+     */
+    com.google.protobuf.ByteString
+    getUserNameBytes();
 }

@@ -10,15 +10,15 @@ package org.remo.api;
 
 // 服务接口定义，服务端和客户端都要遵守该接口进行通信
 service RPCDateService {
-    rpc getDate (RPCDateRequest) returns (RPCDateResponse) {}
+  rpc getDate (RPCDateRequest) returns (RPCDateResponse) {}
 }
 
 // 定义消息（请求）
 message RPCDateRequest {
-    string userName = 1;
+  string userName = 1;
 }
 
 // 定义消息（响应）
 message RPCDateResponse {
-    string serverDate = 1;
+  string serverDate = 1;
 }

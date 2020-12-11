@@ -1,0 +1,37 @@
+syntax = "proto3";   // 语法版本
+
+// stub选项
+option java_package = "org.remo.user";
+option java_outer_classname = "RPCUserServiceApi";
+option java_multiple_files = true;
+
+// 定义包名
+package org.remo.user;
+
+// 服务接口定义，服务端和客户端都要遵守该接口进行通信
+service RPCUserService {
+  rpc getUser (GetUserInfoRequest) returns (GetUserInfoResponse) {}
+  rpc listUser (ListUserInfoRequest) returns (ListUserInfoResponse) {}
+}
+
+// 定义消息（获得User列表）
+message ListUserInfoRequest {
+
+}
+
+// 定义消息（通过ID获得User）
+message GetUserInfoRequest {
+  int32  userId = 1;
+}
+
+// 定义消息（响应）
+message GetUserInfoResponse {
+  int32  userId = 1;
+  string userName = 2;
+  string phone = 3;
+}
+
+// 定义消息（响应）
+message ListUserInfoResponse {
+  repeated GetUserInfoResponse users = 1;
+}

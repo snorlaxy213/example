@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
  * 实现方式：使用 Redis SETNX。
  * 只在键 key 不存在的情况下， 将键 key 的值设置为 value 。
  * 若键 key 已经存在， 则 SETNX 命令不做任何动作。
- * SETNX 是『SET if Not eXists』(如果不存在，则 SET)的简写。
+ * SETNX 是『SET if Not exists』(如果不存在，则 SET)的简写。
  */
 @Component
 public class DistributedLock {
@@ -20,22 +20,24 @@ public class DistributedLock {
     private RedisTemplate<String, Object> redisTemplate;
 
     //锁名称前缀
-    public static final String LOCK_PREFIX = "redis_lock";
+    public static final String LOCK_PREFIX = "REDIS_LOCK_";
     //单位毫秒
-    private final long lockTimeOut = 2000;
+    private final long lockTimeOut = 200;
+
     private long perSleep;
 
     /**
      * 得不到锁立即返回，得到锁返回设置的超时时间
      *
-     * @param key
-     * @return
+     * @param key 主键
+     * @return 过期时间
+     *
      */
     public long tryLock(String key) {
 
         //得到锁后设置的过期时间，未得到锁返回0
         long expireTime = System.currentTimeMillis() + lockTimeOut + 1;
-        Boolean acquire = redisTemplate.opsForValue().setIfAbsent(key, expireTime);
+        boolean acquire = redisTemplate.opsForValue().setIfAbsent(key, expireTime);
         if (acquire) {
             //得到了锁返回
             return expireTime;
@@ -61,9 +63,9 @@ public class DistributedLock {
     /**
      * 得到锁返回设置的超时时间，得不到锁等待
      *
-     * @param key
-     * @return
-     * @throws InterruptedException
+     * @param key 主键
+     * @return 过期时间
+     *
      */
     public long lock(String key) throws InterruptedException {
         long startTime = System.currentTimeMillis();
@@ -72,7 +74,8 @@ public class DistributedLock {
         long expireTime = 0;
         while (true) {
             expireTime = System.currentTimeMillis() + lockTimeOut + 1;
-            if (redisTemplate.opsForValue().setIfAbsent(key, expireTime)) {
+            boolean acquire = redisTemplate.opsForValue().setIfAbsent(key, expireTime);
+            if (acquire) {
                 //得到了锁返回
                 return expireTime;
             } else {
@@ -91,7 +94,7 @@ public class DistributedLock {
                     Thread.sleep(sleep);
                 }
             }
-            if (lockTimeOut > 0 && ((System.currentTimeMillis() - startTime) >= lockTimeOut)) {
+            if ((System.currentTimeMillis() - startTime) >= lockTimeOut) {
                 expireTime = 0;
                 return expireTime;
             }

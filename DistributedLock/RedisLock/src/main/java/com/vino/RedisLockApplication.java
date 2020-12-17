@@ -14,18 +14,28 @@ public class RedisLockApplication {
         SpringApplication.run(RedisLockApplication.class, args);
     }
 
+    // 模拟库存
+    private long goodsNum = 10;
+
     @Autowired
     DistributedLock distributedLock;
 
     @GetMapping("/redisLock")
     public String testRedisLock() {
         //设置个Key
-        String key = "order_id";
+        String key = "ORDER_ID";
         try {
-            long expireTime = distributedLock.lock(DistributedLock.LOCK_PREFIX + key);
+            long expireTime = distributedLock.tryLock(DistributedLock.LOCK_PREFIX + key);
+            // 当获得锁，减少库存，同时释放锁
+            if (expireTime != 0) {
+                goodsNum = goodsNum - 1;
+                distributedLock.unlock(DistributedLock.LOCK_PREFIX + key, expireTime);
+                System.out.println("goodsNum: "+goodsNum);
+                return "success";
+            }
         } catch (Exception e) {
             System.out.println("获取锁异常");
         }
-        return "success";
+        return "false";
     }
 }

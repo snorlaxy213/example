@@ -34,6 +34,7 @@ public final class GetUserInfoRequest extends
 
     private int userId_;
     private byte memoizedIsInitialized = -1;
+
     // Use GetUserInfoRequest.newBuilder() to construct.
     private GetUserInfoRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
         super(builder);

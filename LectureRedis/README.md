@@ -11,8 +11,7 @@
 
 ### 数据类型：
 
-1. string（字符串）：
-   一个 key 对应一个 value； 可以包含任何数据，比如jpg图片或者序列化的对象；string 类型的值最大能存储 512MB。
+1. string（字符串）： 一个 key 对应一个 value； 可以包含任何数据，比如jpg图片或者序列化的对象；string 类型的值最大能存储 512MB。
 
    ````shell
    redis 127.0.0.1:6379> SET runoob "菜鸟教程"
@@ -21,8 +20,7 @@
    "菜鸟教程"
    ````
 
-2. list（链表）：
-   简单的字符串列表，按照插入顺序排序
+2. list（链表）： 简单的字符串列表，按照插入顺序排序
 
    ```shell
    redis 127.0.0.1:6379> lpush runoob redis
@@ -37,11 +35,9 @@
    3) "redis"
    ```
 
-3. set（集合）
-   Redis 的 Set 是 string 类型的无序集合。(不可重复)
+3. set（集合） Redis 的 Set 是 string 类型的无序集合。(不可重复)
 
-   集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。
-   sadd 命令:添加一个 string 元素到 key 对应的 set 集合中，成功返回 1，如果元素已经在集合中返回 0。
+   集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。 sadd 命令:添加一个 string 元素到 key 对应的 set 集合中，成功返回 1，如果元素已经在集合中返回 0。
 
    ```shell
    redis 127.0.0.1:6379> sadd runoob redis
@@ -59,13 +55,11 @@
    3) "mongodb"
    ```
 
-4. zset（sorted set - 有序集合）
-   Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
+4. zset（sorted set - 有序集合） Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
 
    不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。
 
-   zset的成员是唯一的,但分数(score)却可以重复。
-   zadd 命令: 添加元素到集合，元素在集合中存在则更新对应score
+   zset的成员是唯一的,但分数(score)却可以重复。 zadd 命令: 添加元素到集合，元素在集合中存在则更新对应score
 
    ```shell
    redis 127.0.0.1:6379> zadd runoob 0 redis

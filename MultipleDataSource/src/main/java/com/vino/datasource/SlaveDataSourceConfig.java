@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.vino.mapper.slave", sqlSessionTemplateRef  = "slaveSqlSessionTemplate")
+@MapperScan(basePackages = "com.vino.mapper.slave", sqlSessionTemplateRef = "slaveSqlSessionTemplate")
 public class SlaveDataSourceConfig {
 
     @Bean(name = "slaveDataSource")

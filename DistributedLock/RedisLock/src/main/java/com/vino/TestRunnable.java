@@ -22,7 +22,7 @@ public class TestRunnable implements Runnable {
             if (expireTime != 0) {
                 goodsNum = goodsNum - 1;
                 distributedLock.unlock(DistributedLock.LOCK_PREFIX + key, expireTime);
-                System.out.println("goodsNum: "+goodsNum);
+                System.out.println("goodsNum: " + goodsNum);
             }
         } catch (Exception e) {
             System.out.println("获取锁异常");

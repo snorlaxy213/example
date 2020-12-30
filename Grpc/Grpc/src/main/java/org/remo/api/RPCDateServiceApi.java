@@ -51,6 +51,7 @@ public final class RPCDateServiceApi {
                 internal_static_org_remo_api_RPCDateResponse_descriptor,
                 new String[]{"ServerDate",});
     }
+
     private RPCDateServiceApi() {
     }
 

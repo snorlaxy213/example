@@ -24,7 +24,7 @@ public class DateTimeVo implements Serializable {
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @JsonSerialize(using = CustomDateSerialize.class) //序列化（后端往前端传值，CustomDateSerialize这里把日期转化为时间戳传回去）
     @JsonDeserialize(using = CustomDateDeserialize.class) //反序列化（前端往后端传值）
-    Date date;
+            Date date;
 
     public LocalDateTime getLocalDateTime() {
         return localDateTime;

@@ -79,6 +79,7 @@ public final class RPCUserServiceApi {
                 internal_static_org_remo_user_ListUserInfoResponse_descriptor,
                 new String[]{"Users",});
     }
+
     private RPCUserServiceApi() {
     }
 

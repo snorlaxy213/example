@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * redis实现的distributed lock ,锁占用时间不宜过长
- *
+ * <p>
  * 实现方式：使用 Redis SETNX。
  * 只在键 key 不存在的情况下， 将键 key 的值设置为 value 。
  * 若键 key 已经存在， 则 SETNX 命令不做任何动作。
@@ -16,14 +16,12 @@ import org.springframework.util.StringUtils;
 @Component
 public class DistributedLock {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
     //锁名称前缀
     public static final String LOCK_PREFIX = "REDIS_LOCK_";
     //单位毫秒
     private final long lockTimeOut = 200;
-
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     private long perSleep;
 
     /**
@@ -31,7 +29,6 @@ public class DistributedLock {
      *
      * @param key 主键
      * @return 过期时间
-     *
      */
     public long tryLock(String key) {
 
@@ -65,7 +62,6 @@ public class DistributedLock {
      *
      * @param key 主键
      * @return 过期时间
-     *
      */
     public long lock(String key) throws InterruptedException {
         long startTime = System.currentTimeMillis();
@@ -104,7 +100,7 @@ public class DistributedLock {
     /**
      * 先判断自己运行时间是否超过了锁设置时间，是则不用解锁
      *
-     * @param key redis key
+     * @param key        redis key
      * @param expireTime 超时时间
      */
     public void unlock(String key, long expireTime) {

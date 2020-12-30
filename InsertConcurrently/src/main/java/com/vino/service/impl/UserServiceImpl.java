@@ -1,12 +1,9 @@
 package com.vino.service.impl;
 
-import java.util.UUID;
-
 import com.vino.enums.UserSexEnum;
 import com.vino.mapper.master.MasterMapper;
 import com.vino.model.User;
 import com.vino.service.UserService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service(value = "userService")
 @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)

@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class RedisLockApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RedisLockApplication.class, args);
-    }
-
+    @Autowired
+    DistributedLock distributedLock;
     // 模拟库存
     private long goodsNum = 10;
 
-    @Autowired
-    DistributedLock distributedLock;
+    public static void main(String[] args) {
+        SpringApplication.run(RedisLockApplication.class, args);
+    }
 
     @GetMapping("/redisLock")
     public String testRedisLock() {
@@ -30,7 +29,7 @@ public class RedisLockApplication {
             if (expireTime != 0) {
                 goodsNum = goodsNum - 1;
                 distributedLock.unlock(DistributedLock.LOCK_PREFIX + key, expireTime);
-                System.out.println("goodsNum: "+goodsNum);
+                System.out.println("goodsNum: " + goodsNum);
                 return "success";
             }
         } catch (Exception e) {

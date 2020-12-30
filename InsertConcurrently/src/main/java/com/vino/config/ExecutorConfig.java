@@ -1,18 +1,18 @@
 package com.vino.config;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * 应用场景：
- *  1. 在与第三方系统数据交互时,需要另开一个线程去执行交互任务;
- *  2. 系统中日志记录不希望引起响应迟缓;
- *  3. 短信,发送邮件等;
+ * 1. 在与第三方系统数据交互时,需要另开一个线程去执行交互任务;
+ * 2. 系统中日志记录不希望引起响应迟缓;
+ * 3. 短信,发送邮件等;
  */
 @Configuration
 @EnableAsync
@@ -20,10 +20,11 @@ public class ExecutorConfig {
 
     /**
      * 配置线程池信息
+     *
      * @return Executor
      */
     @Bean
-    public Executor asyncServiceExecutor(){
+    public Executor asyncServiceExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //配置核心线程数
         executor.setCorePoolSize(5);

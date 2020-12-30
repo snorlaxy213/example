@@ -12,10 +12,10 @@ public class StringToDateConverter implements Converter<String, Date> {
     @Override
     public Date convert(String source) {
         Date target = null;
-        if(!StringUtils.isEmpty(source)) {
+        if (!StringUtils.isEmpty(source)) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                target =  format.parse(source);
+                target = format.parse(source);
             } catch (ParseException e) {
                 throw new RuntimeException(String.format("parser %s to Date fail", source));
             }

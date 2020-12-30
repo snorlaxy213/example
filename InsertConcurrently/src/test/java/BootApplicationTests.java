@@ -1,5 +1,4 @@
 import com.vino.service.UserService;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +8,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BootApplicationTests {
-    
+
     @Autowired
     private UserService userService;
 
     @Test
-    public void add100kUser(){
+    public void add100kUser() {
         userService.addUser();
     }
 }

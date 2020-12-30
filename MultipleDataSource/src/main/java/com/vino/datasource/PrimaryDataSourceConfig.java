@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.vino.mapper.primary", sqlSessionTemplateRef  = "primarySqlSessionTemplate")
+@MapperScan(basePackages = "com.vino.mapper.primary", sqlSessionTemplateRef = "primarySqlSessionTemplate")
 public class PrimaryDataSourceConfig {
 
     @Bean(name = "primaryDataSource")

@@ -1,10 +1,10 @@
 package com.vino.controller;
 
-import java.util.UUID;
-
 import com.vino.util.SnowflakeIdWorker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 /**
  * 1. 分表分库ID怎么处理？
@@ -21,19 +21,19 @@ public class DistributeController {
 
     /**
      * 1.UUID/GUID
-     *
+     * <p>
      * 优点:
      * 容易实现，产生快
      * ID唯一(几乎不会产生重复id)
      * 无需中心化的服务器(本地生成，不会基于数据库)
      * 不会泄漏商业机密
-     *
+     * <p>
      * 缺点:
      * 可读性差
      * UUID太长(16个字节)，占用空间太多 ，作为主键性能很差；
      * 影响数据库的性能, 比如UUID or GUID as Primary Keys? Be Careful!
      * --UUID不具有有序性，会导致 B+ 树索引在写的时候有过多的随机写操作（连续的 ID 可以产生部分顺序写）；
-     *
+     * <p>
      * 适用场景：文件名、编号。。。。
      */
     @GetMapping(value = "uuid")
@@ -66,16 +66,15 @@ public class DistributeController {
     /**
      * 3.snowflake 算法是 twitter 开源的分布式 id 生成算法，采用 Scala 语言实现，是把一个 64 位的 long 型的 id，
      * 1 个 bit 是不用的，用其中的 41 bits 作为毫秒数，用 10 bits 作为工作机器 id，12 bits 作为序列号。
-     *
+     * <p>
      * 优点：
      * 存储少, 8个字节
      * 可读性高
      * 性能好，可以中心化的产生ID,也可以独立节点生成
-     *
+     * <p>
      * 缺点：
      * 时间回拨会重复产生ID
      * ID生成有规律性,信息容易泄漏
-     *
      */
     @GetMapping(value = "snowFlakeId")
     public Long snowFlakeId() {

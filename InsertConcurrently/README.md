@@ -7,8 +7,6 @@
 | keep-alive       | 超过coresize最小线程数的那些线程，任务完成后，再经过这个设置的时长（单位:秒）会被结束掉,这样的话线程池可以动态的调整池中的线程数 |
 | rejection-policy | ABORT（缺省）：抛出TaskRejectedException异常，然后不执行<br/>DISCARD：不执行，也不抛出异常即放弃该线程<br/>DISCARD_OLDEST：丢弃queue中最旧的那个任务<br/>CALLER_RUNS：不在新线程中执行任务，而是由调用者所在的线程来执行(不再异步) |
 
-
-
 ### BUG：异步运行时，应用关闭而异步任务仍执行导致的错误
 
 解决方案：

@@ -34,6 +34,7 @@ public final class ListUserInfoResponse extends
 
     private java.util.List<GetUserInfoResponse> users_;
     private byte memoizedIsInitialized = -1;
+
     // Use ListUserInfoResponse.newBuilder() to construct.
     private ListUserInfoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
         super(builder);

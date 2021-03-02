@@ -9,7 +9,9 @@ import org.remo.api.RPCDateServiceGrpc;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@GrpcService
 public class RPCDateServiceImpl extends RPCDateServiceGrpc.RPCDateServiceImplBase {
+
     @Override
     public void getDate(RPCDateRequest request, StreamObserver<RPCDateResponse> responseObserver) {
         RPCDateResponse rpcDateResponse = null;

@@ -6,6 +6,7 @@ import org.remo.user.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@GrpcService
 public class RPCUserServiceImpl extends RPCUserServiceGrpc.RPCUserServiceImplBase {
 
     private static final Map<Integer, GetUserInfoResponse> userResponseMaps = new HashMap<>();

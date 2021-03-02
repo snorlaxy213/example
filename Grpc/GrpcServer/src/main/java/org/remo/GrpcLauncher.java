@@ -13,7 +13,6 @@ import java.util.Map;
 /**
  * GRPC启动器
  */
-
 @Component("grpcLauncher")
 public class GrpcLauncher {
 

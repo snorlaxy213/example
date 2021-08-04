@@ -8,5 +8,19 @@
     <artifactId>ZookeeperLock</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

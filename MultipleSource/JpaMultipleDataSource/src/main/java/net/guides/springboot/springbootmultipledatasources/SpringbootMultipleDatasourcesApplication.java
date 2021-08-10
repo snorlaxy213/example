@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 		exclude = { DataSourceAutoConfiguration.class, 
 					HibernateJpaAutoConfiguration.class,
 					DataSourceTransactionManagerAutoConfiguration.class })
-@EnableTransactionManagement
+@EnableTransactionManagement // 启注解事务管理
 public class SpringbootMultipleDatasourcesApplication {
 
 	public static void main(String[] args) {

@@ -1,10 +1,5 @@
 package net.guides.springboot.springbootmultipledatasources.config;
 
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,6 +15,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @author Ramesh Fadatare
@@ -52,7 +51,11 @@ public class SecurityDataSourceConfig
         			.password(securityDataSourceProperties.getPassword())
         			.build();
     }
-    
+
+    /**
+     * 事务管理器
+     *
+     */
     @Bean
     public PlatformTransactionManager securityTransactionManager()
     {
@@ -75,7 +78,11 @@ public class SecurityDataSourceConfig
         
         return factory;
     }
-    
+
+    /**
+     * 初始化数据库
+     *
+     */
     @Bean
 	public DataSourceInitializer securityDataSourceInitializer() 
 	{

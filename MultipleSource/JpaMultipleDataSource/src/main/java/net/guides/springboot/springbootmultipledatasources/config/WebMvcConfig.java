@@ -46,6 +46,9 @@ public class WebMvcConfig {
     	return osivFilter;
     }
 
+	/**
+	 * 配置核心线程池
+	 */
 	@Bean
 	public Executor asyncServiceExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -56,9 +59,7 @@ public class WebMvcConfig {
 		// 当线程不工作时最大存活时间
 		executor.setKeepAliveSeconds(30);
 		// 打到最大线程且阻塞队列已满时，所设定的拒绝策略
-		// CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
-		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-
+		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy()); // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
 		//执行初始化
 		executor.initialize();
 		return executor.getThreadPoolExecutor();

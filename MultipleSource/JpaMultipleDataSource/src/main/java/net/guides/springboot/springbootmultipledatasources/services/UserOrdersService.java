@@ -58,15 +58,14 @@ public class UserOrdersService {
 		//循环创建线程
 		for (int i = 0; i < runSize; i++) {
 			//计算每个线程执行的数据
+			int startIndex = (i * count);
+			int endIndex;
 			if ((i + 1) == runSize) {
-				int startIndex = (i * count);
-				int endIndex = list.size();
-				sublist = list.subList(startIndex, endIndex);
+				endIndex = list.size();
 			} else {
-				int startIndex = (i * count);
-				int endIndex = (i + 1) * count;
-				sublist = list.subList(startIndex, endIndex);
+				endIndex = (i + 1) * count;
 			}
+			sublist = list.subList(startIndex, endIndex);
 			//线程类
 			PrescriptionsThread prescriptionsThread = new PrescriptionsThread(sublist, begin, end, userRepository);
 			asyncServiceExecutor.execute(prescriptionsThread);

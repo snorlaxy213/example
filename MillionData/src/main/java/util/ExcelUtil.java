@@ -42,9 +42,6 @@ public class ExcelUtil {
                     index++;
                 }
                 User user = new User();
-                user.setId((int)objects[0]);
-                user.setName((String) objects[1]);
-                user.setEmail((String) objects[2]);
                 list.add(user);
             }
             System.out.println("导入文件解析成功！");

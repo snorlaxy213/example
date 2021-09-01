@@ -3,34 +3,33 @@
  */
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class User {
-    private Integer id;
+    private Integer userId;
+    private String username;
     private String name;
-    private String email;
-    private boolean disabled;
+    private String password;
+    private String gender;
+    private LocalDate birthday;
+    private LocalDateTime createTime;
+    private String createUser;
 
-    public User() {
+    public Integer getUserId() {
+        return userId;
     }
 
-    public User(Integer id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public User(Integer id, String name, String email, boolean disabled) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.disabled = disabled;
+    public String getUsername() {
+        return username;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -41,21 +40,51 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public String getGender() {
+        return gender;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
+    public LocalDate getBirthday() {
+        return birthday;
+    }
 
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

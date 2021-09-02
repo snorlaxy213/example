@@ -33,7 +33,6 @@ public class Test {
         List<User> users = CsvUtil.parseCsv(new File("C:\\Users\\iso2e\\Desktop\\sys_user_202108312355.csv"));
         long end = System.currentTimeMillis();
         System.out.println("解析Csv花费时间：" +(end - start) + "毫秒");
-
     }
 
 }

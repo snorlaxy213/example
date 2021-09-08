@@ -12,6 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 解析50万数据，花费时间4S左右
+ */
 public class CsvUtil {
 
     public static List<User> parseCsv(File file) {
@@ -25,8 +28,8 @@ public class CsvUtil {
             InputStream is = new FileInputStream(file);
             InputStreamReader isr = new InputStreamReader(is, "GBK");
             Reader reader = new BufferedReader(isr);
-            DateTimeFormatter birthdayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter createTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter birthdayFormatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+            DateTimeFormatter createTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-dd HH:mm:ss");
 
             parser = format.parse(reader);
             List<CSVRecord> list = parser.getRecords();
@@ -55,6 +58,7 @@ public class CsvUtil {
                     parser.close();
                 }
             } catch (IOException e) {
+                System.out.println("关闭资源失败");
                 e.printStackTrace();
             }
         }

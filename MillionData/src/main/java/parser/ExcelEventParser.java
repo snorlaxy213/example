@@ -42,6 +42,7 @@ public class ExcelEventParser {
             XSSFReader xssfReader = new XSSFReader(pkg);
 
             StylesTable styles = xssfReader.getStylesTable();
+            // ZipSecureFile$ThresholdInputStream cannot be cast to class ZipFile$ZipFileInputStream
             ReadOnlySharedStringsTable strings = new ReadOnlySharedStringsTable(pkg);
             sheetInputStream = xssfReader.getSheetsData().next();
 

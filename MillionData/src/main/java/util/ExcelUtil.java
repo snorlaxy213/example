@@ -60,6 +60,12 @@ public class ExcelUtil {
         return null;
     }
 
+    /**
+     * POI事件驱动模式需在Java8环境运行
+     *
+     * @param excelPath
+     * @return
+     */
     public static List<User> parseExcelByEventMode(String excelPath) {
         final List<List<String>> table = new ArrayList<>();
         new ExcelEventParser(excelPath).setHandler(new ExcelEventParser.SimpleSheetContentsHandler(){

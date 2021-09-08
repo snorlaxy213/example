@@ -16,8 +16,8 @@ public class Test {
 
     public static void main(String[] args) {
 //        csvRead();
-//        excelRead();
-        eventModeExcelRead();
+        excelRead();
+//        eventModeExcelRead();
     }
 
     private static void csvRead() {

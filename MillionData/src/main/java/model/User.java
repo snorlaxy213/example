@@ -3,17 +3,30 @@
  */
 package model;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import easyexcel.LocalDateConverter;
+import easyexcel.LocalDateTimeConverter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class User {
+
+    @ExcelProperty(value = "用户ID", index = 0)
     private Integer userId;
+    @ExcelProperty(value = "用户名", index = 1)
     private String username;
+    @ExcelProperty(value = "昵称", index = 2)
     private String name;
+    @ExcelProperty(value = "密码", index = 3)
     private String password;
+    @ExcelProperty(value = "性别", index = 4)
     private String gender;
+    @ExcelProperty(value = "生日", index = 5, converter = LocalDateConverter.class)
     private LocalDate birthday;
+    @ExcelProperty(value = "创建时间", index = 6, converter = LocalDateTimeConverter.class)
     private LocalDateTime createTime;
+    @ExcelProperty(value = "创建用户", index = 7)
     private String createUser;
 
     public Integer getUserId() {

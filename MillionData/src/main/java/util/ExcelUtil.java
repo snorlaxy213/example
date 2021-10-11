@@ -8,21 +8,23 @@ import parser.ExcelEventParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * poi存在问题：解析Excel非常消耗内存，数据操作麻烦。
- * <p>
- * 解析50万数据发生内存Java heap space OutOfMemoryError，堆内存溢出。（网上传：大于20万时即便Java内存加大至2048M也会堆溢出）
- * <p>
- * 发生堆溢出：POI实现步骤为通过InputStream一行行读取到TreeMap类型的HSSFRow结构体中，因此当数据量大时就会造成内存溢出。
- *
- * 测试30条数据解析要5S，效率很差
+ * @author Grio Vino
  */
 public class ExcelUtil {
+
+    /**
+     * poi存在问题：解析Excel非常消耗内存，数据操作麻烦。
+     * <p>
+     * 解析50万数据发生内存Java heap space OutOfMemoryError，堆内存溢出。（网上传：大于20万时即便Java内存加大至2048M也会堆溢出）
+     * <p>
+     * 发生堆溢出：POI实现步骤为通过InputStream一行行读取到TreeMap类型的HSSFRow结构体中，因此当数据量大时就会造成内存溢出。
+     *
+     * 测试30条数据解析要5S，效率很差
+     */
 
     public static List<User> parseExcel(File file) {
         try {
@@ -40,16 +42,16 @@ public class ExcelUtil {
                 Object[] objects = new Object[row.getPhysicalNumberOfCells()];
                 int index = 0;
                 for (Cell cell : row) {
-                    if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
+                    if (cell.getCellType() == CellType.NUMERIC) {
                         objects[index] = (int) cell.getNumericCellValue();
                     }
-                    if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+                    if (cell.getCellType() == CellType.STRING) {
                         objects[index] = cell.getStringCellValue();
                     }
-                    if (cell.getCellType() == XSSFCell.CELL_TYPE_BOOLEAN) {
+                    if (cell.getCellType() == CellType.BOOLEAN) {
                         objects[index] = cell.getBooleanCellValue();
                     }
-                    if (cell.getCellType() == XSSFCell.CELL_TYPE_ERROR) {
+                    if (cell.getCellType() == CellType.ERROR) {
                         objects[index] = cell.getErrorCellValue();
                     }
                     index++;

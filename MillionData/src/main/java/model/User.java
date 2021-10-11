@@ -4,8 +4,8 @@
 package model;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import easyexcel.LocalDateConverter;
-import easyexcel.LocalDateTimeConverter;
+import easyexcel.converter.LocalDateConverter;
+import easyexcel.converter.LocalDateTimeConverter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

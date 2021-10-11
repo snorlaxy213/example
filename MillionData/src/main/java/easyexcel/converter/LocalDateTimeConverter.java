@@ -1,19 +1,15 @@
-package easyexcel;
+package easyexcel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.CellData;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.alibaba.excel.util.DateUtils;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * @className: LocalDateTimeConverter
@@ -21,11 +17,11 @@ import java.util.GregorianCalendar;
  * @author: Grio Vino
  * @date: 2021/10/9
  **/
-public class LocalDateConverter implements Converter<LocalDate> {
+public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
     @Override
-    public Class<LocalDate> supportJavaTypeKey() {
-        return LocalDate.class;
+    public Class<LocalDateTime> supportJavaTypeKey() {
+        return LocalDateTime.class;
     }
 
     @Override
@@ -34,14 +30,14 @@ public class LocalDateConverter implements Converter<LocalDate> {
     }
 
     @Override
-    public LocalDate convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return LocalDate.parse(cellData.getStringValue(), DateTimeFormatter.ofPattern("yyyy/M/d"));
+    public LocalDateTime convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        return LocalDateTime.parse(cellData.getStringValue(), DateTimeFormatter.ofPattern("yyyy/M/d HH:mm:ss"));
     }
 
     @Override
-    public WriteCellData<?> convertToExcelData(LocalDate value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(LocalDateTime value, ExcelContentProperty contentProperty,
                                                GlobalConfiguration globalConfiguration) {
-        return new WriteCellData<String>(value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return new WriteCellData<String>(value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
 }

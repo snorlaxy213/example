@@ -1,8 +1,8 @@
 package parser;
 
-import org.apache.poi.ooxml.util.SAXHelper;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
+import org.apache.poi.util.XMLHelper;
 import org.apache.poi.xssf.eventusermodel.ReadOnlySharedStringsTable;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.eventusermodel.XSSFSheetXMLHandler;
@@ -18,7 +18,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * POI事件驱动模型解析器
+ *
+ * @author Chen Jiaying
+ */
 public class ExcelEventParser {
 
     private final String filename;
@@ -71,14 +77,8 @@ public class ExcelEventParser {
     }
 
     private void processSheet(StylesTable styles, ReadOnlySharedStringsTable strings, InputStream sheetInputStream) throws SAXException, ParserConfigurationException, IOException {
-        XMLReader sheetParser = SAXHelper.newXMLReader();
-
-        if (handler != null) {
-            sheetParser.setContentHandler(new XSSFSheetXMLHandler(styles, strings, handler, false));
-        } else {
-            sheetParser.setContentHandler(new XSSFSheetXMLHandler(styles, strings, new SimpleSheetContentsHandler(), false));
-        }
-
+        XMLReader sheetParser = XMLHelper.newXMLReader();
+        sheetParser.setContentHandler(new XSSFSheetXMLHandler(styles, strings, Objects.requireNonNullElseGet(handler, SimpleSheetContentsHandler::new), false));
         sheetParser.parse(new InputSource(sheetInputStream));
     }
 

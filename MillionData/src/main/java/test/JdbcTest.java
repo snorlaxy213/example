@@ -1,7 +1,10 @@
-package persistence.jdbc;
+package test;
 
 import java.sql.*;
 
+/**
+ * @author Vino
+ */
 public class JdbcTest {
 
     public static void main(String[] args) {
@@ -15,7 +18,6 @@ public class JdbcTest {
         try {
             // 加载数据库驱动
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             // 通过驱动管理类获取数据库链接
             connection = DriverManager.getConnection("jdbc:mysql://gz-cynosdbmysql-grp-18rg22ad.sql.tencentcdb.com:27005/MillionData?characterEncoding=utf-8", "root", "ROOTadmin!");
             // 定义sql语句，？表示占位符

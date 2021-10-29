@@ -40,8 +40,8 @@ public class CsvUtil {
                 temp.setName(record.get("name"));
                 temp.setPassword(record.get("password"));
                 temp.setGender(record.get("gender"));
-                temp.setBirthday(LocalDate.parse(record.get("birthday") ,birthdayFormatter));
-                temp.setCreateTime(LocalDateTime.parse(record.get("create_time") ,createTimeFormatter));
+                temp.setBirthday(LocalDate.parse(record.get("birthday"), birthdayFormatter));
+                temp.setCreateTime(LocalDateTime.parse(record.get("create_time"), createTimeFormatter));
                 temp.setPassword(record.get("create_user"));
 
                 System.out.println(temp);

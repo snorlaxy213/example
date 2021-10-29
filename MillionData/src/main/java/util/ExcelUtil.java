@@ -2,7 +2,6 @@ package util;
 
 import model.User;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import parser.ExcelEventParser;
 
 import java.io.File;
@@ -22,7 +21,7 @@ public class ExcelUtil {
      * 解析50万数据发生内存Java heap space OutOfMemoryError，堆内存溢出。（网上传：大于20万时即便Java内存加大至2048M也会堆溢出）
      * <p>
      * 发生堆溢出：POI实现步骤为通过InputStream一行行读取到TreeMap类型的HSSFRow结构体中，因此当数据量大时就会造成内存溢出。
-     *
+     * <p>
      * 测试30条数据解析要5S，效率很差
      */
 

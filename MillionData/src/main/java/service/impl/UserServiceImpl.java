@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    @Override
+    public Integer addUser(User user) {
+        return 1;
+    }
+
     /**
      * 多线程导入
      * 难度：百万级别的Excel比较大，怎么传输

@@ -63,8 +63,7 @@ public class UserThread implements Callable<Integer> {
         int count = 0;
         for (int i = startRow; i <= endRow; i++) {
             User user = users.get(i);
-//            count += userService.addUser(user);
-            count += 1;
+            count += userService.addUser(user);
         }
         semaphore.release();
         return count;

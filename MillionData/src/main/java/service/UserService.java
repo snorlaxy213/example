@@ -15,9 +15,18 @@ import java.util.concurrent.ExecutionException;
 public interface UserService {
 
     /**
+     * 添加用户
+     * @param user 用户数据
+     * @return 是否成功
+     */
+    public Integer addUser(User user);
+
+    /**
      * 多线程插入用户
      * @param users 用户数据
-     *
+     * @return 插入成功/失败信息
+     * @exception ExecutionException ...
+     * @exception InterruptedException ...
      */
     public Map<String, Object> importData(List<User> users) throws ExecutionException, InterruptedException;
 }

@@ -1,18 +1,17 @@
 package com.vino.provider;
 
+import java.util.Date;
+import java.util.UUID;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vino.beans.Message;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.UUID;
-
 @Component
-@Slf4j
 public class KafkaSender {
 
     @Autowired
@@ -26,7 +25,7 @@ public class KafkaSender {
         message.setId(System.currentTimeMillis());
         message.setMsg(UUID.randomUUID().toString());
         message.setSendTime(new Date());
-        log.info("+++++++++++++++++++++  message = {}", gson.toJson(message));
+        System.out.println("+++++++++++++++++++++  message = {}" + gson.toJson(message));
         kafkaTemplate.send("kafka", gson.toJson(message));
     }
 }

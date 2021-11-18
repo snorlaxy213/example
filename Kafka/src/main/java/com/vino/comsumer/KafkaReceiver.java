@@ -1,16 +1,13 @@
 package com.vino.comsumer;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-@Slf4j
 public class KafkaReceiver {
-
 
     @KafkaListener(topics = {"kafka"})
     public void listen(ConsumerRecord<?, ?> record) {
@@ -19,8 +16,8 @@ public class KafkaReceiver {
 
         if (kafkaMessage.isPresent()) {
             Object message = kafkaMessage.get();
-            log.info("----------------- record =" + record);
-            log.info("------------------ message =" + message);
+            System.out.println("----------------- record =" + record);
+            System.out.println("------------------ message =" + message);
         }
     }
 }

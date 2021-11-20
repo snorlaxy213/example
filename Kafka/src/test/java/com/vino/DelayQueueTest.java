@@ -2,30 +2,40 @@ package com.vino;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class DelayQueueTest {
-    
+
     private KafkaConsumer<String, String> consumer;
     private KafkaProducer<String, String> producer;
-    private volatile Boolean exite = false;
+    private volatile Boolean exit = false;
     private final Object lock = new Object();
-    private final String servers = "";
+    private final String servers = "119.91.60.86:9092";
 
     @BeforeEach
     void initConsumer() {
@@ -48,7 +58,8 @@ public class DelayQueueTest {
         producer = new KafkaProducer<>(props);
     }
 
-    void testDelayQueue() {
+    @Test
+    void testDelayQueue() throws JsonProcessingException, InterruptedException {
         String topic = "delay-minutes-1";
         List<String> topics = Collections.singletonList(topic);
         consumer.subscribe(topics);
@@ -65,9 +76,71 @@ public class DelayQueueTest {
         }, 0, 1000);
 
         do {
+
             synchronized (lock) {
-                ConsumerRecord<String, String> consumerRecord = consumer.poll(Duration.ofMillis(200));
+                ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(200));
+
+                if (consumerRecords.isEmpty()) {
+                    lock.wait();
+                    continue;
+                }
+
+                boolean timed = false;
+                for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                    long timestamp = consumerRecord.timestamp();
+                    TopicPartition topicPartition = new TopicPartition(consumerRecord.topic(), consumerRecord.partition());
+                    if (timestamp + 60 * 1000 < System.currentTimeMillis()) {
+
+                        String value = consumerRecord.value();
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        JsonNode jsonNode = objectMapper.readTree(value);
+                        JsonNode jsonNodeTopic = jsonNode.get("topic");
+
+                        String appTopic = null, appKey = null, appValue = null;
+
+                        if (jsonNodeTopic != null) {
+                            appTopic = jsonNodeTopic.asText();
+                        }
+                        if (appTopic == null) {
+                            continue;
+                        }
+                        JsonNode jsonNodeKey = jsonNode.get("key");
+                        if (jsonNodeKey != null) {
+                            appKey = jsonNode.asText();
+                        }
+
+                        JsonNode jsonNodeValue = jsonNode.get("value");
+                        if (jsonNodeValue != null) {
+                            appValue = jsonNodeValue.asText();
+                        }
+                        // send to application topic
+                        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(appTopic, appKey, appValue);
+                        try {
+                            producer.send(producerRecord).get();
+                            // success. commit message
+                            OffsetAndMetadata offsetAndMetadata = new OffsetAndMetadata(consumerRecord.offset() + 1);
+                            HashMap<TopicPartition, OffsetAndMetadata> metadataHashMap = new HashMap<>();
+                            metadataHashMap.put(topicPartition, offsetAndMetadata);
+                            consumer.commitSync(metadataHashMap);
+                        } catch (ExecutionException e) {
+                            consumer.pause(Collections.singletonList(topicPartition));
+                            consumer.seek(topicPartition, consumerRecord.offset());
+                            timed = true;
+                            break;
+                        }
+                    } else {
+                        consumer.pause(Collections.singletonList(topicPartition));
+                        consumer.seek(topicPartition, consumerRecord.offset());
+                        timed = true;
+                        break;
+                    }
+                }
+
+                if (timed) {
+                    lock.wait();
+                }
             }
-        }
+        } while (!exit);
+
     }
 }

@@ -1,15 +1,17 @@
 package test;
 
-import com.alibaba.excel.EasyExcel;
-import easyexcel.UserListener;
-import model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import util.CsvUtil;
-import util.ExcelUtil;
-
 import java.io.File;
 import java.util.List;
+
+import com.alibaba.excel.EasyExcel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import easyexcel.UserListener;
+import model.User;
+import util.CsvUtil;
+import util.ExcelUtil;
 
 /**
  * 读取Excel测试类
@@ -18,7 +20,7 @@ import java.util.List;
  */
 public class Test {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserListener.class);
 
     private static final String excelPath = "C:\\Users\\86135\\Desktop\\sys_user.xlsx";
     private static final String csvPath = "C:\\Users\\86135\\Desktop\\sys_user.csv";

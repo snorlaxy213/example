@@ -31,7 +31,7 @@
         <snakeyaml.version>2.2</snakeyaml.version>
         <commons-codec.version>1.13</commons-codec.version>
         <slf4j-api.version>1.7.7</slf4j-api.version>
-        <logback.version>1.2.10</logback.version>
+        <logback.version>1.2.13</logback.version>
         <commons-validator.version>1.7</commons-validator.version>
         <concurrentlinkedhashmap-lru.version>1.4.2</concurrentlinkedhashmap-lru.version>
         <grpc.version>1.50.0</grpc.version>

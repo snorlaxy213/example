@@ -1,6 +1,3 @@
-/**
- * 
- */
 package net.guides.springboot.springbootmultipledatasources.config;
 
 import org.springframework.beans.factory.annotation.Value;
